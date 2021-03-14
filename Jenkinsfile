@@ -34,5 +34,10 @@ pipeline {
                 deploy adapters: [tomcat9(credentialsId: 'tomcat-login', path: '', url: 'http://192.168.1.77:8001/')], contextPath: 'tasks-backend', onFailure: false, war: 'target/tasks-backend.war'
             }
         }
+        stage ('API Test') {
+            steps {
+                bat 'clean integration-test -Dapi.baseuri=http://192.168.1.77:8001/tasks-backend'
+            }
+        }
     }
 }
