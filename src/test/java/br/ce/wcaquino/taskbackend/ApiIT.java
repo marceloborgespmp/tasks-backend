@@ -10,7 +10,7 @@ public class ApiIT {
 
     @BeforeClass
     public static void setup() {
-        RestAssured.baseURI = "http://localhost:8001/tasks-backend";
+        RestAssured.baseURI = System.getProperty("api.baseuri","http://localhost:8001/tasks-backend");
     }
 
     @Test
