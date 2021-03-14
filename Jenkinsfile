@@ -36,7 +36,7 @@ pipeline {
         }
         stage ('API Test') {
             steps {
-                bat 'clean integration-test -Dapi.baseuri=http://192.168.1.77:8001/tasks-backend'
+                bat 'mvn integration-test -Dapi.baseuri=http://192.168.1.77:8001/tasks-backend'
             }
         }
     }
