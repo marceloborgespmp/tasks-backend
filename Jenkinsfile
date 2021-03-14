@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-        stage ('Build Backend') {
+        stage ('Build') {
             steps {
                 bat 'mvn clean package -DskipTests=true'
             }
@@ -29,14 +29,14 @@ pipeline {
                 }
             }
         }
-        stage ('Deploy Backend Teste') {
+        stage ('Deploy to TST') {
             steps {
                 deploy adapters: [tomcat9(credentialsId: 'tomcat-login', path: '', url: 'http://192.168.1.77:8001/')], contextPath: 'tasks-backend', onFailure: false, war: 'target/tasks-backend.war'
             }
         }
-        stage ('API Test') {
+        stage ('API Tests') {
             steps {
-                bat 'mvn integration-test -DskipUnitTests=true -Dapi.baseuri=http://192.168.1.77:8001/tasks-backend'
+                bat 'mvn integration-test -Dapi.baseuri=http://192.168.1.77:8001/tasks-backend'
             }
         }
     }
